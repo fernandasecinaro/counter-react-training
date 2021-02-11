@@ -1,12 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createStore, combineReducers } from 'redux';
+import { Provider } from 'react-redux'; // Para conectar redux con react
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import counterReducer from './store/reducers/counter';
+import resultReducer from './store/reducers/result';
+
+const rootReducer = combineReducers({
+  ctr: counterReducer,
+  res: resultReducer,
+});
+
+// La funcion create store recibe el reducer (que es importado)
+const store = createStore(rootReducer);
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
